@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="antProject"  basedir=".">
+		<property name="compile" value="compile"></property>
+		<target name="ant">
+			<tstamp></tstamp>
+			<mkdir dir="${compile}"/>
+			<javac srcdir="src" destdir="${compile}"></javac>
+			<jar destfile="ant/ant-${DSTAMP}.jar" basedir="${compile}">
+					<manifest>
+						<attribute name="Built-By" value="${user.name}"/>
+						<attribute name="Main-Class" value="com.sjl.ant.Test"/>
+					</manifest>
+			</jar>
+							
+		</target>
+	
+			<target name="time">
+			<tstamp>
+			<format property="now" pattern="MMMM d yyyy hh:mm aa"/>
+			<format property="hour_earlier"	pattern="MMMM d yyyy hh:mm aa" offset="-1"	unit="hour"/>
+			<format property="minute_later"	pattern="MMMM d yyyy hh:mm aa" offset="1" unit="minute"/>
+			</tstamp>
+			<!-- now display one of the values -->
+			<echo>now = ${now}</echo>
+			<echo>hour_earlier = ${hour_earlier}</echo>
+			<echo>minute_later = ${minute_later}</echo>
+		</target>
+	<tstamp></tstamp>
+	 <target name="init">
+	  <echo message="${TODAY}" />
+	  <echo message="${DSTAMP}" />
+	  <echo message="${TSTAMP}" />
+	 </target>
+	<target name="deleteFile">
+		<delete file="ant/ant-${Dstamp}.jar"></delete>
+	</target>
+	<target name="copeFile">
+			<copy file="src/com/sjl/ant/Test.java" tofile="ant/aa.java"/>			
+		</target>
+		<target name="moveFile">
+					<move file="compile/aa.java" todir="ant"/>			
+		</target>
+			<target name="zipFile">
+					<zip destfile="ant/ant.zip" basedir="ant"/>		
+			</target>
+			<target name="unzipFile">
+						<unzip dest="ant/zip" src="ant/ant.zip"></unzip>
+			</target>
+		<target name="unjarFile">
+					<unjar dest="ant/jar" src="ant/ant.jar"/>
+			</target>
+	<target name="copy2">
+				<copy todir="other">
+					<fileset dir="ant">
+						<include name="**/*.jar"/>
+					</fileset>
+				</copy>
+</target>
+<taskdef name="sortFile" classname="com.sjl.custom.FileSorter"   classpath="bin"></taskdef>
+	<target name="mySort">
+		<sortFile srcFile="input.txt" destFile="output.txt"/>
+</target>
+</project>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
